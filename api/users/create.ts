@@ -1,4 +1,4 @@
-import { db } from '../../../utils/DB';
+import { db } from '../../utils/DB.ts';
 
 export default async function (req: Request) {
   if (req.method !== 'POST') {
@@ -16,12 +16,12 @@ export default async function (req: Request) {
   createTable.run();
 
   try {
-    const body = await req.json();
-    const { name, email } = body;
+    const formData = await req.formData();
+    const name = formData.get('name') as string;
+    const email = formData.get('email') as string;
     const insert = db.prepare('INSERT INTO users (name, email) VALUES (?, ?);');
     insert.run(name, email);
-    console.log(body);
-    return new Response(JSON.stringify({ status: 200 }));
+    return Response.redirect('/users', 303);
   } catch (e: any) {
     return new Response(e.message, { status: 500 });
   }

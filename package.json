@@ -2,8 +2,16 @@
   "name": "joemcbroomapp",
   "module": "index.ts",
   "type": "module",
+  "scripts": {
+    "dev": "concurrently \"npm run start\" \"npm run tailwind\"",
+    "start": "bun --hot index.tsx",
+    "tailwind": "bunx tailwindcss -i ./styles.css -o ./output.css --watch"
+  },
   "devDependencies": {
-    "bun-types": "latest"
+    "autoprefixer": "^10.4.15",
+    "bun-types": "latest",
+    "postcss": "^8.4.29",
+    "tailwindcss": "^3.3.3"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
@@ -11,6 +19,7 @@
   "dependencies": {
     "@types/react": "^18.2.21",
     "@types/react-dom": "^18.2.7",
+    "concurrently": "^8.2.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-dom/server": "react-dom/server"
